@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {
   TrashIcon
 } from "@heroicons/react/solid";
+import { formatPrice } from "lib/format-price";
+
 
 export const ListingCart = (props) => {
   const [isDeleting, setIsDeleting] = React.useState(false);
@@ -24,10 +26,10 @@ export const ListingCart = (props) => {
           <p className="text-sm font-medium text-gray-900">
             {props.title}
           </p>
-          <p className="text-sm text-gray-500">{props.price} x {props.quantity} pc</p>
+          <p className="text-sm text-gray-500">{formatPrice(props.price)} x {props.quantity} pc</p>
         </div>
         <div className="flex items-center gap-2">
-          <div>{props.price}</div>
+          <div>$ {formatPrice(props.price * props.quantity)}</div>
           {isDeleting ? (
             <button 
               type="button" 
@@ -59,7 +61,6 @@ export const ListingCart = (props) => {
 
 ListingCart.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   /**
    * Quantity of items added to shopping cart, not available quantity.
